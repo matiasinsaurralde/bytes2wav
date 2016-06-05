@@ -28,11 +28,13 @@ func main() {
     Bio: "random text random text random text random text random text random text random text random text random text random text random text random text random text random text random text random text random text random text",
   }
 
-  jsondata, _ := json.Marshal(&p)
+  jsonData, _ := json.Marshal(&p)
+
+  log.Println( "jsonData", string(jsonData))
 
   settings := bytes2wav.Settings{
     Channels: 1,
-    Bits: 8,
+    Bits: 32,
     Rate: 44100,
     Filename: "test2.wav",
     SampleLow: 0,
@@ -41,5 +43,11 @@ func main() {
 
   encoder := bytes2wav.NewEncoder( &settings )
 
-  encoder.Encode( jsondata, "")
+  encoder.Encode( []byte("a"), "")
+
+  decoder := bytes2wav.NewDecoder( &settings )
+
+  output := decoder.Decode("")
+
+  log.Println(output, string(output))
 }
